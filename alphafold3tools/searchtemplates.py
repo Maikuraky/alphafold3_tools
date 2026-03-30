@@ -658,7 +658,11 @@ def _parse_hit_metadata_with_gemmi(
     entity_polys = block.find(
         "_entity_poly.", ["type", "pdbx_seq_one_letter_code_can", "pdbx_strand_id"]
     )
+    logger.debug(f"Got entity_polys for {pdb_id}: {entity_polys}")
     for entity_poly in entity_polys:
+        logger.debug(
+            f"Checking entity_poly with type {entity_poly['type']} and strand_id {entity_poly['pdbx_strand_id']} for auth_chain_id {auth_chain_id}"
+        )
         if (
             entity_poly["type"] == "'polypeptide(L)'"
             or entity_poly["type"] == '"polypeptide(L)"'
