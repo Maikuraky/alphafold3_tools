@@ -246,4 +246,4 @@ This tool uses the following libraries:
 
 ## How do I reference this work?
 
-- Moriwaki Y et al. [Predicting protein complexes in biosynthetic gene clusters](https://www.biorxiv.org/content/10.1101/2025.10.26.684697v1), bioRxiv 2025.10.26.684697; doi: [10.1101/2025.10.26.684697](https://doi.org/10.1101/2025.10.26.684697)
+- Moriwaki Y et al. [High-throughput prediction of protein–protein interactions uncovers hidden molecular networks in biosynthetic gene clusters](https://www.biorxiv.org/content/10.1101/2025.10.26.684697v2), bioRxiv 2025.10.26.684697; doi: [10.1101/2025.10.26.684697](https://doi.org/10.1101/2025.10.26.684697)
