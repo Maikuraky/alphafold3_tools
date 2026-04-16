@@ -1,10 +1,10 @@
 [project]
 name = "alphafold3_tools"
-version = "0.2.0"
+version = "0.3.0"
 description = "Toolkit for alphafold3 input and output files"
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = ["biopython>=1.85", "rdkit>=2024.3.2", "gemmi>=0.7.4", "matplotlib", "pip", "loguru"]
+requires-python = ">=3.12"
+dependencies = ["biopython>=1.85", "rdkit>=2024.3.2", "gemmi>=0.7.5", "matplotlib", "pip", "loguru"]
 license = {text = "BSD-2-Clause"}
 authors = [
   {name = "Yoshitaka Moriwaki", email = "moriwaki.yoshitaka@tmd.ac.jp"},
@@ -14,7 +14,7 @@ authors = [
 indent-width = 4
 line-length = 88 # Same as Black.
 exclude = [".ruff_cache", ".ruff.toml", ".ruff.lock"]
-target-version = "py310"
+target-version = "py312"
 
 [tool.ruff.lint]
 select = [
@@ -51,18 +51,13 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = [
-    "mypy>=1.13.0",
+    "ty>=0.0.29",
     "notebook>=7.2.2",
-    "pandas>=2.2.3",
+    "pandas>=3.0.2",
     "pytest>=8.3.3",
-    "pyyaml>=6.0.2",
-    "ruff>=0.8.2",
+    "pyyaml>=6.0.3",
+    "ruff>=0.15.10",
 ]
-
-[tool.mypy]
-strict = true
-show_error_codes = true
-warn_unreachable = true
 
 [tool.hatch.metadata]
 dynamic = ["name", "version"]
@@ -74,6 +69,7 @@ packages = ["alphafold3tools"]
 msatojson = 'alphafold3tools.msatojson:main'
 jsontomsa = 'alphafold3tools.jsontomsa:main'
 paeplot = 'alphafold3tools.paeplot:main'
+pdbtocif = 'alphafold3tools.pdbtocif:main'
 sdftoccd = 'alphafold3tools.sdftoccd:main'
 modjson = 'alphafold3tools.modjson:main'
 fastatojson = 'alphafold3tools.fastatojson:main'
