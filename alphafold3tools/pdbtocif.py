@@ -123,7 +123,8 @@ def pdb_to_cif(
     # --- Write in maxit category order ---
     _write_output(cats, pdb_id, output_path)
     if write_seqres:
-        cif_to_seqres(output_path, "pdb_seqres.txt")
+        seqres_output_path = Path(output_path).with_name("pdb_seqres.txt")
+        cif_to_seqres(output_path, str(seqres_output_path))
 
 
 # ---------------------------------------------------------------------------
@@ -3321,7 +3322,10 @@ def _convert_pdb_date(date_str: str) -> str:
     day = parts[0].zfill(2)
     month = MONTHS.get(parts[1].upper(), "01")
     yr = int(parts[2])
-    year = yr + (2000 if yr < 50 else 1900)
+    if yr >= 1000:
+        year = yr
+    else:
+        year = yr + (2000 if yr < 50 else 1900)
     return f"{year}-{month}-{day}"
 
 
@@ -3409,10 +3413,12 @@ def main() -> None:
 
     if input_path.is_file():
         logger.debug(f"Processing single file: {input_path}")
-        pdb_to_cif(args.input, args.output, default_pdb_id=args.pdb_id)
-        if args.write_seqres:
-            seqres_path = f"{args.output}_pdb_seqres.txt"
-            cif_to_seqres(args.output, str(seqres_path))
+        pdb_to_cif(
+            args.input,
+            args.output,
+            default_pdb_id=args.pdb_id,
+            write_seqres=args.write_seqres,
+        )
         return
     elif input_path.is_dir():
         logger.debug(f"Processing directory: {input_path}")
@@ -3446,6 +3452,7 @@ def main() -> None:
                 str(pdb_file),
                 str(output_path),
                 default_pdb_id=pdbid,
+                write_seqres=False,
             )
         if args.write_seqres:
             seqres_path = output_dir / "pdb_seqres.txt"

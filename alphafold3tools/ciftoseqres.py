@@ -110,10 +110,13 @@ def main() -> None:
         help="Output file path (default: pdb_seqres.txt).",
     )
     parser.add_argument(
-        "--log-level",
+        "-d",
+        "--debug",
+        dest="log_level",
         action="store_const",
         const="DEBUG",
         default="SUCCESS",
+        help="Enable debug logging.",
     )
     add_version_option(parser)
     args = parser.parse_args()

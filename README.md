@@ -235,11 +235,11 @@ jsontomsa -i /path/to/alphafold3_data.json -o /path/to/out.a3m
 `pdbtocif` is a command to convert a PDB file to mmCIF format. The output file name can be specified with the `-o` option.
 
 ```bash
-pdbtocif -i input.pdb -o output.cif [-pdb_id XXXX]
+pdbtocif -i input.pdb -o output.cif [--pdb_id XXXX]
 ```
 
 This tool is useful for converting legacy PDB-formatted files into mmCIF format, which is required for template search in msatojson as well as for input to AlphaFold 3.
-The `-pdb_id` option allows users to specify the PDB ID assigned to the output mmCIF file. This is particularly useful when using predicted structures (e.g., from the AlphaFold Structure Database) as templates, because such structures often have nonstandard identifiers (e.g., AF-P12345-F1-model_v1) that are not suitable for template search. By default, the PDB ID in the output mmCIF file is set to `xxxx`. The PDB ID must be a four-character string consisting of lowercase letters and/or digits, as the template search in `msatojson` is case-sensitive and the template database uses lowercase PDB IDs.
+The `--pdb_id` option allows users to specify the PDB ID assigned to the output mmCIF file. This is particularly useful when using predicted structures (e.g., from the AlphaFold Structure Database) as templates, because such structures often have nonstandard identifiers (e.g., AF-P12345-F1-model_v1) that are not suitable for template search. By default, the PDB ID in the output mmCIF file is set to `xxxx`. The PDB ID must be a four-character string consisting of lowercase letters and/or digits, as the template search in `msatojson` is case-sensitive and the template database uses lowercase PDB IDs.
 
 Other tools are being developed and will be added.
 
