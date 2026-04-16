@@ -139,6 +139,28 @@ You will obtain three JSON files, `p12345.json`, `q67890.json`, and `i23l45_i3pl
 }
 ```
 
+### modjson
+
+`modjson` is a command to modify an existing AlphaFold3 input json file. This tool is useful to add/modify the ligand entities and User-provided CCD string in an input json file.
+
+```bash
+modjson -i input.json -o output.json [-n jobname] [-p] \
+       [-a smiles "CCOCCC" 1 -a ccdCodes PRD 2] \
+       [-u userccd1.cif userccd2.cif]
+```
+
+- `-i`: Input json file. Mandatory.
+- `-o`: Output json file. Mandatory.
+- `-n`: Job name. Optional. Sets the job name in the input JSON file.
+- `-p`: Purge all ligand entities from the input JSON file at first.
+- `-a`: Add ligand to the input JSON file. Provide 'ligand type', 'ligand name', and 'number of the ligand molecule'. The 'ligand type' must be either 'smiles' or 'ccdCodes'. Multiple ligands can be added.
+  - Example: `-a smiles "CCOCCC" 1 -a ccdCodes PRD 2 -a ...`
+- `-u`: Add user provided ccdCodes to the input JSON file. Multiple files can be provided.
+  - Example: `-u userccd1.cif userccd2.cif`
+
+> [!NOTE]
+> A `*_data.json` file in the AlphaFold3's output directory can be also used as an input JSON file of `modjson`.
+
 ### paeplot
 
 `paeplot` is a command to plot the predicted aligned error (PAE). The color map can be specified with the `-c` option. The default color map is `bwr` (ColabFold-like), but `Greens_r` is also available for AlphaFold Structure Database (AFDB)-like coloring.
@@ -200,28 +222,6 @@ util.cnc
 sdftoccd -i input.sdf -o userccd.cif -n STR
 ```
 
-### modjson
-
-`modjson` is a command to modify an existing AlphaFold3 input json file. This tool is useful to add/modify the ligand entities and User-provided CCD string in an input json file.
-
-```bash
-modjson -i input.json -o output.json [-n jobname] [-p] \
-       [-a smiles "CCOCCC" 1 -a ccdCodes PRD 2] \
-       [-u userccd1.cif userccd2.cif]
-```
-
-- `-i`: Input json file. Mandatory.
-- `-o`: Output json file. Mandatory.
-- `-n`: Job name. Optional. Sets the job name in the input JSON file.
-- `-p`: Purge all ligand entities from the input JSON file at first.
-- `-a`: Add ligand to the input JSON file. Provide 'ligand type', 'ligand name', and 'number of the ligand molecule'. The 'ligand type' must be either 'smiles' or 'ccdCodes'. Multiple ligands can be added.
-  - Example: `-a smiles "CCOCCC" 1 -a ccdCodes PRD 2 -a ...`
-- `-u`: Add user provided ccdCodes to the input JSON file. Multiple files can be provided.
-  - Example: `-u userccd1.cif userccd2.cif`
-
-> [!NOTE]
-> A `*_data.json` file in the AlphaFold3's output directory can be also used as an input JSON file of `modjson`.
-
 ### jsontomsa
 
 `jsontomsa` is a command to extract MSA from the AlphaFold3 input JSON file. The output file name can be specified with the `-o` option.
@@ -229,6 +229,17 @@ modjson -i input.json -o output.json [-n jobname] [-p] \
 ```bash
 jsontomsa -i /path/to/alphafold3_data.json -o /path/to/out.a3m
 ```
+
+### pdbtocif
+
+`pdbtocif` is a command to convert a PDB file to mmCIF format. The output file name can be specified with the `-o` option.
+
+```bash
+pdbtocif -i input.pdb -o output.cif [-pdb_id XXXX]
+```
+
+This tool is useful for converting legacy PDB-formatted files into mmCIF format, which is required for template search in msatojson as well as for input to AlphaFold 3.
+The `-pdb_id` option allows users to specify the PDB ID assigned to the output mmCIF file. This is particularly useful when using predicted structures (e.g., from the AlphaFold Structure Database) as templates, because such structures often have nonstandard identifiers (e.g., AF-P12345-F1-model_v1) that are not suitable for template search. By default, the PDB ID in the output mmCIF file is set to `xxxx`. The PDB ID must be a four-character string consisting of lowercase letters and/or digits, as the template search in `msatojson` is case-sensitive and the template database uses lowercase PDB IDs.
 
 Other tools are being developed and will be added.
 
@@ -243,6 +254,7 @@ This tool uses the following libraries:
 - [loguru](https://loguru.readthedocs.io/en/stable/)
 
 [PDBeurope/ccdutils](https://github.com/PDBeurope/ccdutils) is used for the conversion of sdf to ccd.
+RCSB PDB's [MAXIT](https://sw-tools.rcsb.org/apps/MAXIT/source.html) v11.400 is used as a reference for the conversion of PDB to mmCIF.
 
 ## How do I reference this work?
 

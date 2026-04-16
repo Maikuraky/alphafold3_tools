@@ -434,7 +434,7 @@ def to_json(content: dict) -> str:
     # the entire region between the square brackets by looking for lines
     # containing only whitespace, number, or a comma.
     return re.sub(
-        r'("(?:queryIndices|templateIndices)": \[)([\s\n\d,]+)(\],?)',
+        r'("(?:queryIndices|templateIndices|modelSeeds)": \[)([\s\n\d,]+)(\],?)',
         lambda mtch: mtch[1] + re.sub(r"\n\s+", " ", mtch[2].strip()) + mtch[3],
         alphafold_json,
     )
